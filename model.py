@@ -16,18 +16,31 @@ class Model(db.Model):
     """Car model."""
 
     __tablename__ = "models"
-    pass
+    
+    id = db.Colum(db.integer, autoincrement=True, primary_key=True)
+    year = db.Column(db.integer, nullable=False)
+    brand_name = db.Column(db.String(50), db.ForeignKey('brands.name'), nullable=False)
+    name = db.Column(db.String(50), nullable=False)
 
+    # Define realtionship to brands // brands have many models
+    # SO the *brand_name* column of the *models* table refers 
+    # to the *name* column of the *brands* table:
+    
+    brand = db.relationship('Brand', backref=db.backref('models'))
 
 class Brand(db.Model):
     """Car brand."""
 
     __tablename__ = "brands"
-    pass
+
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    founded = db.Column(db.Integer)
+    headquarters = db.Column(String(50))
+    discontinued = db.Column(Integer)
 
 
 # End Part 1
-
 
 ##############################################################################
 # Helper functions
